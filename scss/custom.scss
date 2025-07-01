@@ -1,0 +1,6 @@
+@use '../node_modules/bootstrap/scss/bootstrap' with (
+  $primary: #4c38ff,
+  $border-radius: 1rem,
+  $font-family-base: "'Poppins', sans-serif",
+  $body-bg: #ccf8fd
+);
