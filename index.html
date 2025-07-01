@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Event Portal</title>
+ <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark px-3">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="bi bi-calendar-week me-2"></i>Community Portal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
+        <ul class="navbar-nav me-3 mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="help.html" target="_blank"><i class="bi bi-question-circle-fill"></i> Help</a></li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control form-control-sm" type="search" placeholder="Search events..." aria-label="Search">
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <!-- Welcome Banner -->
+    <div class="alert alert-info text-center">
+      Welcome back to the community portal. Enjoy your exclusive perks—
+      <span class="text-danger fw-bold">today only!</span>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="mb-5">
+      <h1 class="display-5 text-primary">Welcome to the Community Portal</h1>
+      <p class="lead text-muted">Check out the latest events and get involved in your neighborhood.</p>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section id="events" class="mb-4">
+      <h2 class="text-uppercase">Upcoming Events</h2>
+      <p class="text-capitalize">Register for fun and informative community happenings here!</p>
+    </section>
+
+    <!-- Event Video Preview -->
+    <section id="promo" class="mb-5">
+      <h2>Event Preview</h2>
+      <video id="eventVideo" class="w-100 rounded" width="480" controls oncanplay="videoReadyMessage()" autoplay muted>
+        <source src="media\VID.mp4" type="video/mp4" />
+      </video>
+      <p id="videoStatus" class="text-muted mt-2"></p>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="register" class="mb-5">
+      <h2>Register for an Event</h2>
+      <form onsubmit="showConfirmation(event)">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required autofocus />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="mb-3">
+          <label for="date" class="form-label">Event Date:</label>
+          <input type="date" class="form-control" id="date" name="date" required />
+        </div>
+        <div class="mb-3">
+          <label for="type" class="form-label">Event Type:</label>
+          <select id="type" name="type" class="form-select" required>
+            <option value="">--Select an Event--</option>
+            <option value="workshop">Workshop</option>
+            <option value="festival">Cultural Festival</option>
+            <option value="cleanup">Clean-Up Drive</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message:</label>
+          <textarea id="message" name="message" placeholder="Any comments or questions?" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit Registration</button>
+        <output id="confirmation" class="d-block mt-3"></output>
+      </form>
+    </section>
+
+    <!-- Preferred Event Type -->
+    <section class="mb-5">
+      <label for="eventType" class="form-label">Save Preferred Event Type:</label>
+      <select id="eventType" class="form-select mb-2" onchange="storePreference()">
+        <option value="">-- Choose preferred type --</option>
+        <option value="workshop">Workshop</option>
+        <option value="festival">Cultural Festival</option>
+        <option value="cleanup">Clean-Up Drive</option>
+      </select>
+      <button class="btn btn-outline-danger mt-2" onclick="clearPreferences()">Clear Preferences</button>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="mb-5">
+      <h2>Photo Highlights</h2>
+      <p class="text-muted">Snapshots from Past Community Events</p>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <div class="col text-center">
+          <img src="images\DANCE.jpg" alt="Dance performance on stage" title="Cultural Night" class="img-fluid rounded gallery-img" />
+          <p>Cultural Night</p>
+        </div>
+        <div class="col text-center">
+          <img src="images\I2.jpg" alt="Kids in workshop" title="Art for All" class="img-fluid rounded gallery-img" />
+          <p>Kids Wood Workshop</p>
+        </div>
+        <div class="col text-center">
+          <img src="images/CLEAN.jpg" alt="Volunteers cleaning a park" title="Clean-Up Drive" class="img-fluid rounded gallery-img" />
+          <p>Community Clean-Up</p>
+        </div>
+        <div class="col text-center">
+          <img src="images\music.jpg" alt="Local band at evening concert" title="Music Evening" class="img-fluid rounded gallery-img" />
+          <p>Music Evening</p>
+        </div>
+        <div class="col text-center">
+          <img src="images\I1.jpg" alt="Street food stalls and crowd" title="Food Fest" class="img-fluid rounded gallery-img" />
+          <p>Food Festival</p>
+        </div>
+        <div class="col text-center">
+          <img src="images\plant.jpg" alt="Tree planting with kids" title="Green Day" class="img-fluid rounded gallery-img" />
+          <p>Tree Planting Drive</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Geolocation Section -->
+    <section id="geo" class="mb-5">
+      <h2>Locate Nearby Events</h2>
+      <button class="btn btn-warning mb-3" onclick="findNearbyEvents()">Find Nearby Events</button>
+      <ul id="nearbyEvents" class="list-group"></ul>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="mb-5">
+      <h2>We Value Your Feedback</h2>
+      <form onsubmit="return confirmFeedback()">
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number:</label>
+          <input type="text" class="form-control border border-primary" id="phone" placeholder="Your mobile" onblur="validatePhone()" required />
+        </div>
+        <div class="mb-3">
+          <label for="event" class="form-label">Which event did you attend?</label>
+          <select id="event" class="form-select" onchange="showFee()" required>
+            <option value="">-- Select an event --</option>
+            <option value="workshop">Workshop - ₹100</option>
+            <option value="festival">Cultural Festival - ₹50</option>
+            <option value="cleanup">Clean-Up Drive - Free</option>
+          </select>
+          <p id="feeDisplay" class="text-info mt-2"></p>
+        </div>
+        <div class="mb-3">
+          <label for="feedbackText" class="form-label">Your Feedback:</label>
+          <textarea id="feedbackText" class="form-control" rows="4" placeholder="Type your thoughts..." onkeyup="countCharacters()"></textarea>
+          <p id="charCount" class="text-muted">0 characters</p>
+        </div>
+        <img src="images\tq.jpg" alt="Thank you image" id="thankImg" class="img-thumbnail rounded-circle border border-3" ondblclick="enlargeImage()" title="Double-click to enlarge" />
+        <br /><br />
+        <button type="submit" class="btn btn-info shadow-lg rounded-pill">Send Feedback</button>
+      </form>
+    </section>
+
+    <!-- Profile Card -->
+    <section class="mb-5">
+      <h2 class="text-center">Meet Your Host</h2>
+      <div class="card mx-auto" style="max-width: 20rem;">
+        <img src="images/host.jpg" class="card-img-top" alt="Profile Image">
+        <div class="card-body d-flex flex-column justify-content-between align-items-center">
+          <h5 class="card-title fw-bold">Ravi Kumar</h5>
+          <p class="card-text text-muted">Event Coordinator</p>
+          <button class="btn btn-primary">Connect</button>
+        </div>
+      </div>
+    </section>;
+
+    <!-- Modal Trigger -->
+    <section class="mb-5 text-center">
+      <h2>Get Event Alerts</h2>
+      <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#subscribeModal">Subscribe</button>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Subscribe for Alerts</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="email" class="form-control mb-3" placeholder="Enter your email">
+            <p class="text-muted">We’ll send reminders before each event starts.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion -->
+    <section class="mb-5">
+      <h2>FAQs</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq1-heading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              What is the registration fee?
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              It depends on the event! Some are free, others have small fees.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq2-heading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              Can I volunteer?
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Absolutely! Select "Volunteer" during registration or contact us directly.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Overview (Spacing Utilities) -->
+    <section class="bg-light p-5 mb-5 rounded">
+      <h2 class="text-center mb-4">Event Pricing</h2>
+      <div class="row text-center">
+        <div class="col-sm-4 mb-3">
+          <div class="border p-3 rounded shadow">
+            <h5>Workshop</h5>
+            <p class="text-muted">₹100</p>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+          <div class="border p-3 rounded shadow">
+            <h5>Festival</h5>
+            <p class="text-muted">₹50</p>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+          <div class="border p-3 rounded shadow">
+            <h5>Clean-Up Drive</h5>
+            <p class="text-muted">Free</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Media Icons -->
+    <section class="mb-5 text-center">
+      <h2>Follow Us</h2>
+      <button class="btn btn-outline-dark me-2" title="Facebook"><i class="bi bi-facebook"></i></button>
+      <button class="btn btn-outline-dark me-2" title="Twitter"><i class="bi bi-twitter-x"></i></button>
+      <button class="btn btn-outline-dark" title="Instagram"><i class="bi bi-instagram"></i></button>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="mb-5">
+      <h2>Contact Us</h2>
+      <p>Email us at <a href="mailto:support@communityportal.org">support@communityportal.org</a> or visit your local council office for assistance.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 position-fixed bottom-0 start-0 w-100">
+      <small>© 2025 Community Portal. All rights reserved.</small>
+    </footer>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
